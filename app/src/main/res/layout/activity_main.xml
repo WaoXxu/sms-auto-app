@@ -106,7 +106,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="\n使用说明：\n1. 确保手机和电脑在同一WiFi\n2. 输入服务器地址（电脑IP:8080）\n3. 点击"保存服务器地址"\n4. 点击"电池优化"并允许忽略电池优化\n5. 点击"同步任务"开始接收任务\n6. 同步服务会自动在后台运行"
+        android:text="\n使用说明：\n1. 确保手机和电脑在同一WiFi\n2. 输入服务器地址（电脑IP:8080）\n3. 点击【保存服务器地址】\n4. 点击【电池优化】并允许忽略电池优化\n5. 点击【同步任务】开始接收任务\n6. 同步服务会自动在后台运行"
         android:textSize="12sp"
         android:textColor="@android:color/darker_gray"
         android:layout_marginTop="16dp" />

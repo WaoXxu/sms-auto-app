@@ -1,10 +1,15 @@
 # Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to flags specified
-# in proguard-android-optimize.txt
+# You can control the set of applied configuration files using the
+# proguardFiles setting in build.gradle.
 
-# Keep model classes
+# Keep OkHttp classes
+-keep class okhttp3.** { *; }
+-keep class okio.** { *; }
+
+# Keep Kotlin coroutines
+-keepclassmembernames class kotlinx.** {
+    volatile <fields>;
+}
+
+# Keep our application classes
 -keep class com.smsauto.** { *; }
-
-# OkHttp
--dontwarn okhttp3.**
--dontwarn okio.**
