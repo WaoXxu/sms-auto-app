@@ -12,8 +12,8 @@ import androidx.core.app.NotificationCompat
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
@@ -121,15 +121,13 @@ class SmsService : Service() {
         val parts = smsManager.divideMessage(message)
 
         if (parts.size > 1) {
-            // 长短信需要分段发送
-            val sentIntents = parts.map { null }
-            val deliveryIntents = parts.map { null }
+            // 长短信需要分段发送，不需要发送/送达回执
             smsManager.sendMultipartTextMessage(
                 phone,
                 null,
                 parts,
-                sentIntents,
-                deliveryIntents
+                null,
+                null
             )
         } else {
             smsManager.sendTextMessage(
@@ -150,10 +148,7 @@ class SmsService : Service() {
                 put("failed", failed)
                 put("progress", (current * 100 / total))
             }
-            val body = RequestBody.create(
-                "application/json".toMediaType(),
-                json.toString()
-            )
+            val body = json.toString().toRequestBody("application/json".toMediaType())
             val request = Request.Builder()
                 .url("$serverUrl/api/tasks/$taskId/status")
                 .put(body)
@@ -173,10 +168,7 @@ class SmsService : Service() {
                 put("failed", failed)
                 put("progress", 100)
             }
-            val body = RequestBody.create(
-                "application/json".toMediaType(),
-                json.toString()
-            )
+            val body = json.toString().toRequestBody("application/json".toMediaType())
             val request = Request.Builder()
                 .url("$serverUrl/api/tasks/$taskId/status")
                 .put(body)
